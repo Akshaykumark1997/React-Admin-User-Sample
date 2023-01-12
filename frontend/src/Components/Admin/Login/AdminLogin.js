@@ -1,14 +1,14 @@
 import React,{useState} from 'react';
-import axios from '../../axios';
+import axios from '../../../axios'; 
 import {useNavigate} from "react-router-dom";
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreaters } from '../../State/index';
+import { actionCreaters } from '../../../State/index';
 
-function Login() {
-     const initialVlaues = { username: "", email: "", phone: "", password: "" };
+function AdminLogin() {
+     const initialVlaues = {  email: "",  password: "" };
     const [formValues, setFormValues] = useState(initialVlaues);
     const navigate = useNavigate();
     const [errors,setErrors] = useState({});
@@ -28,7 +28,7 @@ function Login() {
             email: formValues.email,
             password: formValues.password,
         }
-        axios.post('http://localhost:9000/login',{
+        axios.post('http://localhost:9000/admin',{
             email: formValues.email,
             password: formValues.password,
         }).then((response)=>{
@@ -38,17 +38,19 @@ function Login() {
                 id:response.data.id
             }
             storeToken(data);
-            navigate('/');
+            navigate('/admin/home');
         }).catch((error)=>{
             console.log(error.response.data); 
             setErrors(error.response.data);
             console.log(errors);
         })
         console.log(user);
-    }   
-   return(
-        <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-            <h2 style={{marginBottom: '40px'}}>Login</h2>
+    }  
+
+
+  return (
+    <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+            <h2 style={{marginBottom: '40px'}}>Login Admin</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group mt-4">
                     <input
@@ -74,12 +76,12 @@ function Login() {
                 </div>
                 <div className="form-group mt-4">
                     <button type="submit" className="btn btn-primary">
-                        Login User
+                        Login Admin
                     </button>
                 </div>
             </form>
         </div>
-        )
+  )
 }
 
-export default Login
+export default AdminLogin

@@ -5,13 +5,13 @@ const initialState = {
 
 const tokenReducer = (prevState = initialState, action) => {
   switch (action.type) {
-    case "StoreToken":
+    case "storeToken":
       return {
         ...prevState,
         token: action.token,
         id: action.id,
       };
-    case "RemoveToken":
+    case "removeToken":
       return {
         ...prevState,
         token: "",

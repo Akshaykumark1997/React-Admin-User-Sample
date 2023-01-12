@@ -1,9 +1,9 @@
-export const storeToken =(token,id)=>{
+export const storeToken =(data)=>{
     return (dispatch)=>{
         dispatch({
             type:"storeToken",
-            token:token,
-             id:id
+            token:data.token,
+             id:data.id
         })
     }
 }

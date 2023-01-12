@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const dbconnect = require('./config/connection');
 const users = require('./routes/user');
+const Admin = require('./routes/admin')
 const cors = require("cors");
 
 
@@ -25,6 +26,7 @@ dbconnect.dbconnect();
 
 
 app.use('/',users);
+app.use('/admin',Admin)
 
 
 app.listen(process.env.PORTNO, () => {

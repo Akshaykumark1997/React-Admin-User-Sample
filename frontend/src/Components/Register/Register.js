@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import axios from '../../axios';
 import {useNavigate} from "react-router-dom"
+
 // import { baseUrl } from '../../Constants/Constants';
 
 function Register() {
@@ -8,6 +9,8 @@ function Register() {
     const [formValues, setFormValues] = useState(initialVlaues);
     const [errors,setErrors] = useState({});
     const navigate = useNavigate();
+
+    
 
     const onChangeHandle = (event) => {
     const { name, value } = event.target;
@@ -20,7 +23,7 @@ function Register() {
             name: formValues.name,
             email: formValues.email,
             password: formValues.password,
-            password_confirm: formValues.confirmPassword 
+            password_confirm: formValues.password_confirm 
         }).then((response)=>{
             console.log(response.data);
             navigate('/');
@@ -74,8 +77,8 @@ function Register() {
                     type="password"
                     placeholder="Confirm Password"
                     className="form-control"
-                    name="confirmPassword"
-                    value={formValues.confirmPassword}
+                    name="password_confirm"
+                    value={formValues.password_confirm}
                     onChange={onChangeHandle}
                     />
                     {errors && <p style={{color:"red"}}>{errors.password_confirm}</p>}
