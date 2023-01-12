@@ -19,7 +19,7 @@ module.exports = {
             if(user){
               res.status(400).json({email:"email already exist"});
             }else{
-                bcrypt.hash(data.password, 10,(err,hash)=>{
+                bcrypt.hash(req.body.password, 10,(err,hash)=>{
                     const password = hash;
                     User.create({
                         name:req.body.name,
@@ -64,6 +64,9 @@ module.exports = {
                       else {
                         res.json({
                           success: true,
+                          name:user.name,
+                          email:user.email,
+                          id:user._id,
                           token: `Bearer ${token}`,
                         });
                       }

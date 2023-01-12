@@ -25,7 +25,7 @@ dbconnect.dbconnect();
 
 
 app.use('/',users);
-app.use("/api/users", users);
+
 
 app.listen(process.env.PORTNO, () => {
   console.log("server started listening to port");

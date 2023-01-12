@@ -1,8 +1,13 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
+import axios from '../../axios';
+import {useNavigate} from "react-router-dom"
+// import { baseUrl } from '../../Constants/Constants';
 
 function Register() {
     const initialVlaues = { username: "", email: "", phone: "", password: "" };
     const [formValues, setFormValues] = useState(initialVlaues);
+    const [errors,setErrors] = useState({});
+    const navigate = useNavigate();
 
     const onChangeHandle = (event) => {
     const { name, value } = event.target;
@@ -11,20 +16,27 @@ function Register() {
 
     const handleSubmit = (event)=>{
         event.preventDefault();
-         const user = {
+        axios.post('http://localhost:9000/register',{
             name: formValues.name,
             email: formValues.email,
             password: formValues.password,
-            password_confirm: formValues.confirmPassword
-        }
-        console.log(user);
+            password_confirm: formValues.confirmPassword 
+        }).then((response)=>{
+            console.log(response.data);
+            navigate('/');
+        }).catch((error)=>{
+            console.log(error.response.data);
+            setErrors(error.response.data);
+            // console.log(errors);
+        })
+       
     }   
 
     return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Registration</h2>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div className="form-group mt-4">
                     <input
                     type="text"
                     placeholder="Name"
@@ -33,8 +45,9 @@ function Register() {
                     value={formValues.name}
                     onChange={onChangeHandle}
                     />
+                    {errors && <p style={{color:"red"}}>{errors.name}</p>}
                 </div>
-                <div className="form-group">
+                <div className="form-group mt-4">
                     <input
                     type="email"
                     placeholder="Email"
@@ -43,8 +56,9 @@ function Register() {
                     value={formValues.email}
                     onChange={onChangeHandle}
                     />
+                    {errors && <p style={{color:"red"}}>{errors.email}</p>}
                 </div>
-                <div className="form-group">
+                <div className="form-group mt-4">
                     <input
                     type="password"
                     placeholder="Password"
@@ -53,8 +67,9 @@ function Register() {
                     value={formValues.password}
                     onChange={onChangeHandle}
                     />
+                    {errors && <p style={{color:"red"}}>{errors.password}</p>}
                 </div>
-                <div className="form-group">
+                <div className="form-group mt-4">
                     <input
                     type="password"
                     placeholder="Confirm Password"
@@ -63,8 +78,9 @@ function Register() {
                     value={formValues.confirmPassword}
                     onChange={onChangeHandle}
                     />
+                    {errors && <p style={{color:"red"}}>{errors.password_confirm}</p>}
                 </div>
-                <div className="form-group">
+                <div className="form-group mt-4">
                     <button type="submit" className="btn btn-primary">
                         Register User
                     </button>
