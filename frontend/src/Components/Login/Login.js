@@ -48,9 +48,6 @@ function Login() {
     }   
 
     useEffect(()=>{
-        console.log(auth);
-        console.log(auth.token);
-        console.log(auth.token.token);
         if(auth.token.token !== ''){
             navigate('/');
         }

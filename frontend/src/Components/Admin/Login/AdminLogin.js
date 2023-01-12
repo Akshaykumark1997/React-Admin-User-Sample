@@ -1,8 +1,11 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import axios from '../../../axios'; 
 import {useNavigate} from "react-router-dom";
 
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreaters } from '../../../State/index';
 
 function AdminLogin() {
      const initialVlaues = {  email: "",  password: "" };
@@ -11,6 +14,8 @@ function AdminLogin() {
     const [errors,setErrors] = useState({});
 
     const state = useSelector(state=>state); 
+    const dispatch = useDispatch();
+    const {storeToken} = bindActionCreators(actionCreaters,dispatch);
    
 
     console.log(state);
@@ -30,6 +35,11 @@ function AdminLogin() {
             password: formValues.password,
         }).then((response)=>{
             console.log(response.data);
+            const data = {
+                token:response.data.token,
+                id:""
+            }
+            storeToken(data);
             navigate('/admin/home');
         }).catch((error)=>{
             console.log(error.response.data); 
@@ -38,7 +48,14 @@ function AdminLogin() {
         })
         console.log(user);
     }  
+        useEffect(()=>{ 
+        
+        if(state.token.token !== ''){
+            navigate('/admin/home');
+        }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
   return (
     <div className="container" style={{ marginTop: '50px', width: '700px'}}>

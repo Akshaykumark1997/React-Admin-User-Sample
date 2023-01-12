@@ -12,22 +12,24 @@ import Home from './Components/Home/Home';
 import Admin from './Components/Admin/Home/Home';
 import AddUser from './Components/Admin/AddUser/AddUser';
 import AdminLogin from './Components/Admin/Login/AdminLogin';
+import EditUser from './Components/Admin/EditUser/EditUser';
 
 function App() {
   // const state = useSelector(state=>state); 
-
+   
   return (
     
     <BrowserRouter>
+    <NavBar/>
     <div>
-      <NavBar/>
     <Routes>
         <Route exact path="/" element={ <Home/> } />
         <Route exact path="/register" element={< Register/> } />
         <Route exact path="/login" element={ <Login/> } />
         <Route exact path="/admin" element={ <AdminLogin/> } />
         <Route exact path="/admin/home" element={ <Admin/> } />
-        <Route exact path="/admin/adduser" element={ <AddUser/> } />
+        <Route exact path="/admin/addUser" element={ <AddUser/> } />
+        <Route exact path="/admin/editUser" element={ <EditUser/> } />
     </Routes>
     </div>
     </BrowserRouter>

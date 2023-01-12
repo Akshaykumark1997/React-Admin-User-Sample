@@ -1,38 +1,36 @@
 import React,{useState} from 'react';
+import { useSelector } from 'react-redux';
 import axios from '../../../axios';
 import {useNavigate} from "react-router-dom"
-// import { useSelector } from 'react-redux';
 
-function AddUser() {
-    const initialVlaues = { username: "", email: "", phone: "", password: "" };
+
+function EditUser() {
+    const details = useSelector(state=>state); 
+    const initialVlaues = { name: details.data.name, email:details.data.email  };
     const [formValues, setFormValues] = useState(initialVlaues);
-    const [errors,setErrors] = useState({});
     const navigate = useNavigate();
-    // const auth = useSelector(state=>state);  
-    
-
+    const [errors,setErrors] = useState({});
+    console.log(details);
     const onChangeHandle = (event) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+    const { name, value } = event.target; 
+    setFormValues({ ...formValues, [name]: value }); 
   };
+  
 
-    const handleSubmit = (event)=>{
+  const handleSubmit = (event)=>{
         event.preventDefault();
-        axios.post('http://localhost:9000/admin/addUser',{
+        axios.post(`http://localhost:9000/admin/editUser/${details.data.id}`,{
             name: formValues.name,
             email: formValues.email,
-            password: formValues.password,
-            password_confirm: formValues.password_confirm 
         }).then((response)=>{
-            console.log(response.data);
             navigate('/admin/home');
         }).catch((error)=>{
-            console.log(error.response.data);
             setErrors(error.response.data);
-            // console.log(errors);
         })
        
     }   
+
+
   return (
     <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Registration</h2>
@@ -60,28 +58,6 @@ function AddUser() {
                     {errors && <p style={{color:"red"}}>{errors.email}</p>}
                 </div>
                 <div className="form-group mt-4">
-                    <input
-                    type="password"
-                    placeholder="Password"
-                    className="form-control"
-                    name="password"
-                    value={formValues.password}
-                    onChange={onChangeHandle}
-                    />
-                    {errors && <p style={{color:"red"}}>{errors.password}</p>}
-                </div>
-                <div className="form-group mt-4">
-                    <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    className="form-control"
-                    name="password_confirm"
-                    value={formValues.password_confirm}
-                    onChange={onChangeHandle}
-                    />
-                    {errors && <p style={{color:"red"}}>{errors.password_confirm}</p>}
-                </div>
-                <div className="form-group mt-4">
                     <button type="submit" className="btn btn-primary">
                         Register User
                     </button>
@@ -91,4 +67,4 @@ function AddUser() {
   )
 }
 
-export default AddUser
+export default EditUser
