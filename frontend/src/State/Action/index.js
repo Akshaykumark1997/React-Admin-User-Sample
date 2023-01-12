@@ -8,12 +8,13 @@ export const storeToken =(data)=>{
     }
 }
 
-export const removeToken = (token,id)=>{
+export const removeToken = (data)=>{
     return (dispatch)=>{
         dispatch({
             type:"removeToken",
-            token:token,
-            id:id
+            token:data.token,
+            id:data.id
         })
     }
 }
+

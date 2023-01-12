@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import axios from '../../axios';
 import {useNavigate} from "react-router-dom";
 
@@ -13,10 +13,10 @@ function Login() {
     const navigate = useNavigate();
     const [errors,setErrors] = useState({});
 
-    const state = useSelector(state=>state); 
+    const auth = useSelector(state=>state); 
     const dispatch = useDispatch();
     const {storeToken} = bindActionCreators(actionCreaters,dispatch);
-    console.log(state);
+    
 
     const onChangeHandle = (event) => {
     const { name, value } = event.target;
@@ -46,6 +46,17 @@ function Login() {
         })
         console.log(user);
     }   
+
+    useEffect(()=>{
+        console.log(auth);
+        console.log(auth.token);
+        console.log(auth.token.token);
+        if(auth.token.token !== ''){
+            navigate('/');
+        }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
    return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Login</h2>

@@ -13,10 +13,10 @@ module.exports = {
         const { errors, isValid } = validateLoginInput(req.body);
          if (!isValid) {
            return res.status(400).json(errors);
-         }
-         const email = req.body.email;
-         const password = req.body.password;
-         if(process.env.AdminEmail === email && process.env.AdminPassword === password){
+        }
+        const email = req.body.email;
+        const password = req.body.password;
+        if(process.env.AdminEmail === email && process.env.AdminPassword === password){
             const payload = {
               email: email,
             };
@@ -29,19 +29,28 @@ module.exports = {
               (err, token) => {
                 if (err) console.error("There is some error in token", err);
                 else {
-                  res.json({
-                    success: true,
-                    email:email,
-                    token: `Bearer ${token}`,
-                  });
+                    res.json({
+                      success: true,
+                      email: email,
+                      token: `Bearer ${token}`,
+                    });
                 }
               }
             );
-         }else{
-            errors = "Incorrect email or password";
+        }else{
+            errors.password = "Incorrect email or password";
             return res.status(400).json(errors);
-         }
+        }
+    },
+    allUsers:(req,res)=>{
+        User.find().then((allUsers)=>{
+            res.json({
+                status:true,
+                Users:allUsers
+            });
+        })
     }
+
 
 
 }

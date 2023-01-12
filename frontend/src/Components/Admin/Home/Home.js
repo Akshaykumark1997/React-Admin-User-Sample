@@ -1,6 +1,21 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react';
+import axios from '../../../axios'; 
 
-function Home() { 
+
+function Home() {
+    const [users,setUsers] = useState([]);
+    useEffect(()=>{
+        axios.get('http://localhost:9000/admin/allUsers').then((response)=>{
+            console.log(response.data);
+            if(response.data.status){
+                setUsers(response.data.Users);
+            }else{
+                console.log(response);
+            }
+        })
+    },[])
+    console.log(users)
+    
   return (
     <div>
         <div className="container">
@@ -22,15 +37,17 @@ function Home() {
               </tr>
             </thead>
             <tbody>
-              <tr>
+                { users.map((obj)=>{
+                return( 
+              <tr key={obj._id}>
                 <td className="col-3 col-md-3 col-lg-3 col-xl-2 text-center">
-                  hii
+                  {obj._id}
                 </td>
                 <td className="col-3 col-md-3 col-lg-3 col-xl-2 text-center">
-                  name
+                  {obj.name}
                 </td>
                 <td className="col-3 col-md-3 col-lg-3 col-xl-2 text-center">
-                 email
+                 {obj.email}
                 </td>
                 <td className="col-3 col-md-3 col-lg-3 col-xl-2 text-center">
                   <a href="/">
@@ -48,6 +65,9 @@ function Home() {
                  
                 </td>
               </tr>
+                 )
+                })
+                } 
               
             </tbody>
           </table>

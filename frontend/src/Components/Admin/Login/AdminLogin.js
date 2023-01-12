@@ -3,9 +3,6 @@ import axios from '../../../axios';
 import {useNavigate} from "react-router-dom";
 
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreaters } from '../../../State/index';
 
 function AdminLogin() {
      const initialVlaues = {  email: "",  password: "" };
@@ -14,8 +11,8 @@ function AdminLogin() {
     const [errors,setErrors] = useState({});
 
     const state = useSelector(state=>state); 
-    const dispatch = useDispatch();
-    const {storeToken} = bindActionCreators(actionCreaters,dispatch);
+   
+
     console.log(state);
 
     const onChangeHandle = (event) => {
@@ -33,11 +30,6 @@ function AdminLogin() {
             password: formValues.password,
         }).then((response)=>{
             console.log(response.data);
-            const data ={
-                token:response.data.token,
-                id:response.data.id
-            }
-            storeToken(data);
             navigate('/admin/home');
         }).catch((error)=>{
             console.log(error.response.data); 

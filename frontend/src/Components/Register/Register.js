@@ -1,7 +1,7 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import axios from '../../axios';
 import {useNavigate} from "react-router-dom"
-
+import { useSelector } from 'react-redux';
 // import { baseUrl } from '../../Constants/Constants';
 
 function Register() {
@@ -9,7 +9,7 @@ function Register() {
     const [formValues, setFormValues] = useState(initialVlaues);
     const [errors,setErrors] = useState({});
     const navigate = useNavigate();
-
+    const auth = useSelector(state=>state); 
     
 
     const onChangeHandle = (event) => {
@@ -34,6 +34,16 @@ function Register() {
         })
        
     }   
+    useEffect(()=>{
+        console.log(auth);
+        console.log(auth.token);
+        console.log(auth.token.token);
+        if(auth.token.token !== ''){
+            navigate('/');
+        }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
