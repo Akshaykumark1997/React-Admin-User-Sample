@@ -23,7 +23,6 @@ function Home() {
 
     useEffect(()=>{
         axios.get('http://localhost:9000/admin/allUsers').then((response)=>{
-            // console.log(response.data);
             if(response.data.status){
                 setUsers(response.data.Users);
             }else{
@@ -64,6 +63,13 @@ function Home() {
         console.log(id);
         axios.get(`http://localhost:9000/admin/deleteUser/${id}`).then((reaponse)=>{
             console.log(reaponse);
+            axios.get('http://localhost:9000/admin/allUsers').then((response)=>{
+            if(response.data.status){
+                setUsers(response.data.Users);
+            }else{
+                console.log(response);
+            }
+        })
         })
     }
     const handleLogout = ()=>{

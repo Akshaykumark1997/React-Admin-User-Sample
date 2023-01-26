@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const passport = require("passport");
+const path = require("path");
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 const validateEditUser = require('../validation/editUser');
@@ -104,5 +104,8 @@ module.exports = {
             status:true
         })
     })
+  },
+  addProfile:(req,res)=>{
+    
   }
 };

@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import axios from '../../axios';
 import {useNavigate} from "react-router-dom"
 import { useSelector } from 'react-redux';
+import NavBar from '../NavBar/NavBar';
 // import { baseUrl } from '../../Constants/Constants';
 
 function Register() {
@@ -46,6 +47,8 @@ function Register() {
     },[])
 
     return(
+        <div>
+            <NavBar/>
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Registration</h2>
             <form onSubmit={handleSubmit}>
@@ -99,6 +102,7 @@ function Register() {
                     </button>
                 </div>
             </form>
+        </div>
         </div>
     )
 }

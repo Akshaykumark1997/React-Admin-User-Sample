@@ -9,4 +9,5 @@ router.post('/addUser',adminController.addUser);
 router.get('/editUser/:id',adminController.editUser);
 router.post('/editUser/:id',adminController.postEditUser);
 router.get('/deleteUser/:id',adminController.deleteUser);
+router.post('/profile',adminController.addProfile)
 module.exports = router;

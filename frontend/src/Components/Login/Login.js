@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import axios from '../../axios';
 import {useNavigate} from "react-router-dom";
 
+import NavBar from '../NavBar/NavBar';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -55,6 +56,8 @@ function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
    return(
+        <div>
+            <NavBar/>
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Login</h2>
             <form onSubmit={handleSubmit}>
@@ -86,6 +89,7 @@ function Login() {
                     </button>
                 </div>
             </form>
+        </div>
         </div>
         )
 }

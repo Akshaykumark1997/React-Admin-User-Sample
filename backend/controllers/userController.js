@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 const User = require("../models/userSchema");
+const path = require("path");
+const fileUpload = require("express-fileupload");
+
 
 
 module.exports = {
@@ -79,6 +82,29 @@ module.exports = {
 
             })
         })
+    },
+    users:(req,res)=>{
+      console.log(req.params.id);
+      User.findOne({_id:req.params.id}).then((user)=>{
+        res.json({user});
+      })
+    },
+    addProfile:async(req,res)=>{
+      console.log(req.params.id);
+      console.log(req.files.image);
+      const image = req.files.image;
+        const imageName =req.params.id;
+        await image.mv('./public/profile/' + imageName+
+              ".jpg",
+            (err) => {
+              if (!err) {
+                res.json({status:true}); 
+              } else {
+                res.json({status:false});  
+              } 
+            }
+          );
+      
     }
     
 }
